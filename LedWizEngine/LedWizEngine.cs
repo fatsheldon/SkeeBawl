@@ -18,7 +18,6 @@ namespace LedWiz
         public LedWizEngine()
         {
             var directInput = new SharpDX.DirectInput.DirectInput();
-            var stuff = directInput.GetDevices();
             var joystickDeviceInstance = directInput.GetDevices().FirstOrDefault(x => x.Type == SharpDX.DirectInput.DeviceType.Joystick);//FIX THIS to be more specific! currently it'll take the first joystick it finds... this is dumb.
             if (joystickDeviceInstance == null)
                 throw new LedWizDeviceNotFoundException();
