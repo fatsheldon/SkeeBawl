@@ -1,4 +1,8 @@
-﻿using System;
+﻿// This file is provided by GroovyGameGear (http://groovygamegear.com/) as part of the LedWiz SDK
+// Also, find the LedWiz.dll and LedWiz.pdb
+//
+
+using System;
 using System.Runtime.InteropServices;
 
 namespace LedWiz
