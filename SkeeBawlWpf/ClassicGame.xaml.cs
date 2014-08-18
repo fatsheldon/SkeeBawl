@@ -22,7 +22,7 @@ namespace SkeeBawlWpf
 
         public void LedWizInputChange(object sender, LedWizInputArgs e)
         {
-            if (e.LedWizUpdates.Any(x => x.JoystickButton == JoystickButton.Button9 && x.Value > 0))
+            if (e.LedWizUpdates.Any(x => x.JoystickButton == JoystickButton.Button10 && x.Value > 0))
                 Exit();
             if (e.LedWizUpdates.Any(x => x.JoystickButton == JoystickButton.Button8 && x.Value > 0))
                 IncrementBallsInPlay();

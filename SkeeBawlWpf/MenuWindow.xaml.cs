@@ -27,7 +27,7 @@ namespace SkeeBawlWpf
 
         public void ledWiz_InputChange(object sender, LedWizInputArgs e)
         {
-            foreach (var update in e.LedWizUpdates.Where(x => x.JoystickButton == JoystickButton.Button9 && x.Value > 0))
+            foreach (var update in e.LedWizUpdates.Where(x => x.JoystickButton == JoystickButton.Button10 && x.Value > 0))
             {
                 Dispatcher.Invoke(() =>
                     GamesList.SelectedItem = GamesList.SelectedIndex == GamesList.Items.Count - 1
