@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using LedWiz;
 
 namespace SkeeBawlWpf
 {
-
     /// <summary>
     /// Interaction logic for Menu.xaml
     /// </summary>
@@ -19,6 +20,7 @@ namespace SkeeBawlWpf
             InitializeComponent();
 
             GamesList.SelectedItem = GamesList.Items[0];
+            GamesList.Focus();
 
             //   new testwindow().Show();
         }
@@ -33,7 +35,7 @@ namespace SkeeBawlWpf
                         : GamesList.Items[GamesList.SelectedIndex + 1]);
             }
             if (e.LedWizUpdates.Any(x => x.JoystickButton == JoystickButton.Button1 && x.Value > 0))
-                Dispatcher.Invoke(() => GameStart(this, new GameStartEventArgs { Game = new ClassicGame() }));
+                Dispatcher.Invoke(() => GameStart(this, new GameStartEventArgs { Game = ((ISkeeBawlGameListItem)GamesList.SelectedItem).GetGame() }));
         }
 
         private void MenuWindow_OnKeyUp(object sender, KeyEventArgs e)
@@ -51,6 +53,11 @@ namespace SkeeBawlWpf
                     this.Close();
                     break;
             }
+        }
+
+        private void GamesList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            GameImage.Source = new BitmapImage(new Uri(((ISkeeBawlGameListItem)GamesList.SelectedItem).GameImage)); 
         }
     }
 

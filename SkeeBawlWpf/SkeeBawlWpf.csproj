@@ -56,6 +56,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ClassicSkeeBawlListItem.cs" />
+    <Compile Include="ISkeeBawlGameListItem.cs" />
     <Compile Include="ISkeeGame.cs" />
     <Compile Include="testwindow.xaml.cs">
       <DependentUpon>testwindow.xaml</DependentUpon>
@@ -101,6 +103,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Content Include="assets\classic\digital-7.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -115,6 +120,15 @@
       <Project>{959d5f06-ca04-4b97-a0d8-656d253402bd}</Project>
       <Name>LedWizEngine</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\menu\skeeballman.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\menu\skeeballman2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\classic\background.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

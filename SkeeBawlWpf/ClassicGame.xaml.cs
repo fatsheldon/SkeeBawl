@@ -83,7 +83,8 @@ namespace SkeeBawlWpf
 
         private void ClassicGame_OnLoaded(object sender, RoutedEventArgs e)
         {
-            GameStart(this, new EventArgs());
+            if (GameStart != null)
+                GameStart(this, new EventArgs());
         }
         #endregion
 
@@ -95,7 +96,7 @@ namespace SkeeBawlWpf
 
         private void IncreaseScore(int howMuch)
         {
-            if (_ballsScored < 9)
+            if (_ballsScored < BallsToUse)
             {
                 _score += howMuch;
                 Dispatcher.Invoke(() => ScoreText.Text = _score.ToString());
@@ -109,15 +110,17 @@ namespace SkeeBawlWpf
                 _ballsScored = 0;
                 _ballsInPlay = 0;
                 _score = 0;
-                GameStart(this, new EventArgs());
+                if (GameStart != null)
+                    GameStart(this, new EventArgs());
                 Dispatcher.Invoke(() => ScoreText.Text = _score.ToString());
                 Dispatcher.Invoke(() => BallsScoredText.Text = _ballsScored.ToString());
-                Dispatcher.Invoke(() => BallsInPlayText.Text = _ballsInPlay.ToString());
+                //Dispatcher.Invoke(() => BallsInPlayText.Text = _ballsInPlay.ToString());
             }
         }
 
         private void IncrementBallsScored()
         {
+            if(_ballsScored < BallsToUse)
             _ballsScored++;
             Dispatcher.Invoke(() => BallsScoredText.Text = _ballsScored.ToString());
         }
@@ -125,15 +128,16 @@ namespace SkeeBawlWpf
         private void IncrementBallsInPlay()
         {
             _ballsInPlay++;
-            Dispatcher.Invoke(() => BallsInPlayText.Text = _ballsInPlay.ToString());
-            if (_ballsInPlay >= BallsToUse)
+            //Dispatcher.Invoke(() => BallsInPlayText.Text = _ballsInPlay.ToString());
+            if (_ballsInPlay >= BallsToUse && AllBawlsInPlay != null)
                 AllBawlsInPlay(this, new EventArgs());
         }
 
         private void Exit()
         {
             if (_ballsScored >= BallsToUse)
-                this.Close();
+                Dispatcher.Invoke(this.Close);
+        //        this.Close();
         }
         #endregion
     }

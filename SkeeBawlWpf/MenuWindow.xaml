@@ -1,11 +1,21 @@
 ﻿<Window x:Class="SkeeBawlWpf.MenuWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Menu" Height="300" Width="300" KeyUp="MenuWindow_OnKeyUp">
+        xmlns:skeeBawlWpf="clr-namespace:SkeeBawlWpf"
+        Title="Menu" Height="600" Width="800" KeyUp="MenuWindow_OnKeyUp"
+        WindowStyle="None"
+        WindowState="Maximized"
+        Background="Black">
     <Grid>
-        <ListBox Name="GamesList" HorizontalAlignment="Left" Height="186" Margin="164,25,0,0" VerticalAlignment="Top" Width="100">
-            <ListBoxItem Name="Classic">Classic</ListBoxItem>
-            <ListBoxItem Name="Classic2">Classic2</ListBoxItem>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="450" />
+        </Grid.ColumnDefinitions>
+        <ListBox Name="GamesList" HorizontalAlignment="Stretch" Margin="25,25,50,25" VerticalAlignment="Stretch"   Grid.Column ="1"  FontSize="75"
+                 SelectionChanged="GamesList_OnSelectionChanged">
+            <skeeBawlWpf:ClassicSkeeBawlListItem x:Name="Classic">Classic</skeeBawlWpf:ClassicSkeeBawlListItem>
+            <skeeBawlWpf:ClassicSkeeBawlListItem x:Name="Classic2" GameImage="pack://application:,,,/assets/menu/skeeballman2.png">Classic2</skeeBawlWpf:ClassicSkeeBawlListItem>
         </ListBox>
+        <Image Name="GameImage" Source="pack://application:,,,/assets/menu/skeeballman2.png" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="Fill" Height="300" Width="300"></Image>
     </Grid>
 </Window>
