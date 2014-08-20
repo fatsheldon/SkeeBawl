@@ -63,7 +63,12 @@ namespace LedWiz
                 var datas = _joystick.GetBufferedData();
                 if (datas.Any())
                     if (InputChange != null)
+                    {
+                        var inputArgs = new LedWizInputArgs(datas);
+                        if (inputArgs.LedWizUpdates.Any(x => x.JoystickButton == JoystickButton.Button6 || x.JoystickButton == JoystickButton.Button10))
+                            WindowsApi.SetThreadExecutionState(WindowsApi.ExecutionState.ES_DISPLAY_REQUIRED | WindowsApi.ExecutionState.ES_SYSTEM_REQUIRED);
                         InputChange(this, new LedWizInputArgs(datas));
+                    }
             }
         }
 
