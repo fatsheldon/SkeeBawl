@@ -52,6 +52,7 @@ namespace LedWiz
         private void _hardwarePoller_DoWork(object sender, DoWorkEventArgs e)
         {
             _joystick.Acquire();
+            var timer = DateTime.Now.AddMinutes(-2);
             while (true)
             {
                 if (((BackgroundWorker)sender).CancellationPending)
@@ -64,9 +65,11 @@ namespace LedWiz
                 if (datas.Any())
                     if (InputChange != null)
                     {
-                        var inputArgs = new LedWizInputArgs(datas);
-                        if (inputArgs.LedWizUpdates.Any(x => x.JoystickButton == JoystickButton.Button6 || x.JoystickButton == JoystickButton.Button10))
+                        if (DateTime.Now > timer.AddMinutes(1))
+                        {//only call this once a minute max
                             WindowsApi.SetThreadExecutionState(WindowsApi.ExecutionState.ES_DISPLAY_REQUIRED | WindowsApi.ExecutionState.ES_SYSTEM_REQUIRED);
+                            timer = DateTime.Now;
+                        }
                         InputChange(this, new LedWizInputArgs(datas));
                     }
             }
