@@ -11,7 +11,7 @@ namespace SkeeBawlWpf
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class ClassicGame : Window, ISkeeGame
+    public partial class ClassicGame : SkeeBawlWindow, ISkeeGame
     {
         public ClassicGame()
         {

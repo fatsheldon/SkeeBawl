@@ -59,6 +59,7 @@
     <Compile Include="ClassicSkeeBawlListItem.cs" />
     <Compile Include="ISkeeBawlGameListItem.cs" />
     <Compile Include="ISkeeGame.cs" />
+    <Compile Include="SkeeBawlWindow.cs" />
     <Compile Include="testwindow.xaml.cs">
       <DependentUpon>testwindow.xaml</DependentUpon>
     </Compile>

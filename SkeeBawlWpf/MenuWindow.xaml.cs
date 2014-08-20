@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -11,7 +10,7 @@ namespace SkeeBawlWpf
     /// <summary>
     /// Interaction logic for Menu.xaml
     /// </summary>
-    public partial class MenuWindow : Window
+    public partial class MenuWindow : SkeeBawlWindow
     {
         public delegate void GameStartHandler(object sender, GameStartEventArgs e);
         public event GameStartHandler GameStart;
@@ -57,7 +56,7 @@ namespace SkeeBawlWpf
 
         private void GamesList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            GameImage.Source = new BitmapImage(new Uri(((ISkeeBawlGameListItem)GamesList.SelectedItem).GameImage)); 
+            GameImage.Source = new BitmapImage(new Uri(((ISkeeBawlGameListItem)GamesList.SelectedItem).GameImage));
         }
     }
 

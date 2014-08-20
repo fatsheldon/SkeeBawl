@@ -1,6 +1,7 @@
-﻿<Window x:Class="SkeeBawlWpf.ClassicGame" KeyUp="Window_KeyUp"
+﻿<skeeBawlWpf:SkeeBawlWindow x:Class="SkeeBawlWpf.ClassicGame" KeyUp="Window_KeyUp"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:skeeBawlWpf="clr-namespace:SkeeBawlWpf"
         Title="MainWindow" Height="1080" Width="1920"
         Loaded="ClassicGame_OnLoaded"
         WindowStyle="None" WindowState="Maximized"
@@ -32,4 +33,4 @@
             0
         </TextBlock>
     </Grid>
-</Window>
+</skeeBawlWpf:SkeeBawlWindow>
