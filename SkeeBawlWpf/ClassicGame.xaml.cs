@@ -133,7 +133,7 @@ namespace SkeeBawlWpf
         {
             using (var sp = new SoundPlayer(Properties.Resources.start))
                 sp.Play();
-
+            GameOverImage.Visibility = Visibility.Hidden;
             if (_ballsScored >= BallsToUse)
             {
                 _ballsScored = 0;
@@ -150,8 +150,13 @@ namespace SkeeBawlWpf
         private void IncrementBallsScored()
         {
             if (_ballsScored < BallsToUse)
+            {
                 _ballsScored++;
-            Dispatcher.Invoke(() => BallsScoredText.Text = _ballsScored.ToString());
+                Dispatcher.Invoke(() => BallsScoredText.Text = _ballsScored.ToString());
+            }
+            
+            if(_ballsScored == BallsToUse)
+                GameOverImage.Visibility = Visibility.Visible;
         }
 
         private void IncrementBallsInPlay()

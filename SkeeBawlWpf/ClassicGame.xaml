@@ -22,6 +22,7 @@
             <ColumnDefinition Width="3.2*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Image Grid.ColumnSpan="5" Grid.RowSpan="5" Source="assets/classic/background.png" Stretch="Fill" Margin="75,5,75,5"></Image>
+        <Image Name="GameOverImage" Grid.Column="4" Grid.Row="0" Source="assets/classic/gameOver.png" Stretch="Fill" Margin="50,25,30,57" Visibility="Visible"></Image>
         <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Name="ScoreText"
                    HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="350"
                    TextAlignment="right" FontFamily="assets/classic/ds-digib.ttf#DS-Digital Bold" Foreground="Orange">
