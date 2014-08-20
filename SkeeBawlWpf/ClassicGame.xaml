@@ -27,10 +27,9 @@
                         0
         </TextBlock>
         <TextBlock Grid.Row="3" Grid.Column="2" Name="BallsScoredText" HorizontalAlignment="Center" VerticalAlignment="Center"
-                   FontSize="150" TextAlignment="Right" FontFamily="assets/classic/digital-7.ttf#digital-7" Foreground="Orange"
+                   FontSize="150" TextAlignment="Right" FontFamily="assets/classic/ds-digib.ttf#DS-Digital Bold" Foreground="Orange"
                    >
             0
         </TextBlock>
-    <!--    <TextBlock Name="BallsInPlayText" HorizontalAlignment="Center"   TextWrapping="Wrap" Text="0" VerticalAlignment="Top"/> -->
     </Grid>
 </Window>
