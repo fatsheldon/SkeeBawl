@@ -23,7 +23,7 @@
         <Image Grid.ColumnSpan="5" Grid.RowSpan="5" Source="assets/classic/background.png" Stretch="Fill" Margin="75,5,75,5"></Image>
         <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Name="ScoreText"
                    HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="350"
-                   TextAlignment="right" FontFamily="assets/classic/digital-7.ttf#digital-7" Foreground="Orange">
+                   TextAlignment="right" FontFamily="assets/classic/ds-digib.ttf#DS-Digital Bold" Foreground="Orange">
                         0
         </TextBlock>
         <TextBlock Grid.Row="3" Grid.Column="2" Name="BallsScoredText" HorizontalAlignment="Center" VerticalAlignment="Center"

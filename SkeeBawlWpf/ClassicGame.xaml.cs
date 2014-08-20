@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using System.Media;
 using System.Windows;
 using System.Windows.Input;
 using LedWiz;
@@ -83,8 +85,9 @@ namespace SkeeBawlWpf
 
         private void ClassicGame_OnLoaded(object sender, RoutedEventArgs e)
         {
-            if (GameStart != null)
-                GameStart(this, new EventArgs());
+            //if (GameStart != null)
+            //    GameStart(this, new EventArgs());
+            StartNewGame();
         }
         #endregion
 
@@ -98,6 +101,29 @@ namespace SkeeBawlWpf
         {
             if (_ballsScored < BallsToUse)
             {
+                switch (howMuch)
+                {
+                    case 10:
+                        using (var sp = new SoundPlayer(Properties.Resources.Ding10))
+                            sp.Play();
+                        break;
+                    case 20:
+                        using (var sp = new SoundPlayer(Properties.Resources.ding20a))
+                            sp.Play();
+                        break;
+                    case 30:
+                        using (var sp = new SoundPlayer(Properties.Resources.Ding30a))
+                            sp.Play();
+                        break;
+                    case 40:
+                        using (var sp = new SoundPlayer(Properties.Resources.Ding40a))
+                            sp.Play();
+                        break;
+                    case 50:
+                        using (var sp = new SoundPlayer(Properties.Resources.Ding50a))
+                            sp.Play();
+                        break;
+                }
                 _score += howMuch;
                 Dispatcher.Invoke(() => ScoreText.Text = _score.ToString());
             }
@@ -105,6 +131,9 @@ namespace SkeeBawlWpf
 
         private void StartNewGame()
         {
+            using (var sp = new SoundPlayer(Properties.Resources.start))
+                sp.Play();
+
             if (_ballsScored >= BallsToUse)
             {
                 _ballsScored = 0;
@@ -120,8 +149,8 @@ namespace SkeeBawlWpf
 
         private void IncrementBallsScored()
         {
-            if(_ballsScored < BallsToUse)
-            _ballsScored++;
+            if (_ballsScored < BallsToUse)
+                _ballsScored++;
             Dispatcher.Invoke(() => BallsScoredText.Text = _ballsScored.ToString());
         }
 
@@ -137,7 +166,7 @@ namespace SkeeBawlWpf
         {
             if (_ballsScored >= BallsToUse)
                 Dispatcher.Invoke(this.Close);
-        //        this.Close();
+            //        this.Close();
         }
         #endregion
     }

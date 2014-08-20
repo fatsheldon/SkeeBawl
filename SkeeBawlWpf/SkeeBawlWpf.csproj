@@ -99,6 +99,17 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="assets\classic\Ding50a.wav" />
+    <None Include="assets\classic\Ding40a.wav" />
+    <None Include="assets\classic\Ding30a.wav" />
+    <None Include="assets\classic\ding20a.wav" />
+    <None Include="assets\classic\Ding10.wav" />
+    <Content Include="assets\classic\DS-DIGIB.TTF">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="assets\classic\start.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
