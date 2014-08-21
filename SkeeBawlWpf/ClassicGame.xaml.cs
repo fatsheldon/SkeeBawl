@@ -41,7 +41,7 @@ namespace SkeeBawlWpf
             if (e.LedWizUpdates.Any(x => x.JoystickButton == JoystickButton.Button2 && x.Value > 0))
                 IncreaseScore(10);
             if (e.LedWizUpdates.Any(x => x.JoystickButton == JoystickButton.Button1 && x.Value > 0))
-                StartNewGame();
+                CheckStartNewGame();
         }
         #endregion
 
