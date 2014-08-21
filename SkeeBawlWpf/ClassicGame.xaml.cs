@@ -75,7 +75,7 @@ namespace SkeeBawlWpf
                     IncreaseScore(10);
                     break;
                 case System.Windows.Input.Key.D0:
-                    StartNewGame();
+                    CheckStartNewGame();
                     break;
                 case System.Windows.Input.Key.Escape: //killswitch
                     this.Close();
@@ -85,8 +85,6 @@ namespace SkeeBawlWpf
 
         private void ClassicGame_OnLoaded(object sender, RoutedEventArgs e)
         {
-            //if (GameStart != null)
-            //    GameStart(this, new EventArgs());
             StartNewGame();
         }
         #endregion
@@ -129,22 +127,27 @@ namespace SkeeBawlWpf
             }
         }
 
-        private void StartNewGame()
+        private void CheckStartNewGame()
         {
-            using (var sp = new SoundPlayer(Properties.Resources.start))
-                sp.Play();
-            GameOverImage.Visibility = Visibility.Hidden;
             if (_ballsScored >= BallsToUse)
             {
                 _ballsScored = 0;
                 _ballsInPlay = 0;
                 _score = 0;
-                if (GameStart != null)
-                    GameStart(this, new EventArgs());
+
                 Dispatcher.Invoke(() => ScoreText.Text = _score.ToString());
                 Dispatcher.Invoke(() => BallsScoredText.Text = _ballsScored.ToString());
-                //Dispatcher.Invoke(() => BallsInPlayText.Text = _ballsInPlay.ToString());
+                StartNewGame();
             }
+        }
+        private void StartNewGame()
+        {
+            using (var sp = new SoundPlayer(Properties.Resources.start))
+                sp.Play();
+            Dispatcher.Invoke(() => GameOverImage.Visibility = Visibility.Hidden);
+
+            if (GameStart != null)
+                GameStart(this, new EventArgs());
         }
 
         private void IncrementBallsScored()
@@ -154,15 +157,14 @@ namespace SkeeBawlWpf
                 _ballsScored++;
                 Dispatcher.Invoke(() => BallsScoredText.Text = _ballsScored.ToString());
             }
-            
-            if(_ballsScored == BallsToUse)
-                GameOverImage.Visibility = Visibility.Visible;
+
+            if (_ballsScored == BallsToUse)
+                Dispatcher.Invoke(() => GameOverImage.Visibility = Visibility.Visible);
         }
 
         private void IncrementBallsInPlay()
         {
             _ballsInPlay++;
-            //Dispatcher.Invoke(() => BallsInPlayText.Text = _ballsInPlay.ToString());
             if (_ballsInPlay >= BallsToUse && AllBawlsInPlay != null)
                 AllBawlsInPlay(this, new EventArgs());
         }
@@ -171,7 +173,6 @@ namespace SkeeBawlWpf
         {
             if (_ballsScored >= BallsToUse)
                 Dispatcher.Invoke(this.Close);
-            //        this.Close();
         }
         #endregion
     }
