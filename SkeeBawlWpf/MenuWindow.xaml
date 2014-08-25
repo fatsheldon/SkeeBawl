@@ -14,7 +14,7 @@
         <ListBox Name="GamesList" HorizontalAlignment="Stretch" Margin="25,25,50,25" VerticalAlignment="Stretch"   Grid.Column ="1"  FontSize="75"
                  SelectionChanged="GamesList_OnSelectionChanged">
             <skeeBawlWpf:ClassicSkeeBawlListItem x:Name="Classic">Classic</skeeBawlWpf:ClassicSkeeBawlListItem>
-            <skeeBawlWpf:ClassicSkeeBawlListItem x:Name="Classic2" GameImage="pack://application:,,,/assets/menu/skeeballman2.png">Classic2</skeeBawlWpf:ClassicSkeeBawlListItem>
+            <skeeBawlWpf:ThemeSkeeListItem >Theme Skee</skeeBawlWpf:ThemeSkeeListItem>
         </ListBox>
         <Image Name="GameImage" Source="pack://application:,,,/assets/menu/skeeballman2.png" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="Fill" Height="300" Width="300"></Image>
     </Grid>

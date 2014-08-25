@@ -1,0 +1,15 @@
+﻿<skeeBawlWpf:SkeeBawlGameWindow x:Class="SkeeBawlWpf.ThemeSkee"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:skeeBawlWpf="clr-namespace:SkeeBawlWpf"
+        Title="ThemeSkee" Height="1080" Width="1920"
+                            Background="Black">
+    <Grid>
+        <Image Stretch="Fill"  Name="BackgroundImage"></Image>
+        <Image  Name="GameOverImage"></Image>
+        <Canvas VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <TextBlock Name="BallsScoredText" Foreground="White">00</TextBlock>
+            <TextBlock Name="ScoreText" Foreground="White">000</TextBlock>
+        </Canvas>
+    </Grid>
+</skeeBawlWpf:SkeeBawlGameWindow>

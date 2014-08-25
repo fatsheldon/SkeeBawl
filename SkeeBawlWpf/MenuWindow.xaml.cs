@@ -46,7 +46,7 @@ namespace SkeeBawlWpf
                     break;
                 case Key.D0:
                 case Key.Enter:
-                    GameStart(this, new GameStartEventArgs { Game = new ClassicGame() });
+                    GameStart(this, new GameStartEventArgs { Game = ((ISkeeBawlGameListItem)GamesList.SelectedItem).GetGame() });
                     break;
                 case Key.Escape: //killswitch. only known way out.
                     this.Close();

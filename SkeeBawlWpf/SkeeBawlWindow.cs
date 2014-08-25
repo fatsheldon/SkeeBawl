@@ -8,6 +8,8 @@ namespace SkeeBawlWpf
         protected SkeeBawlWindow()
         {
             this.Cursor = Cursors.None;
+            WindowStyle = WindowStyle.None;
+            WindowState = WindowState.Maximized;
         }
     }
 }

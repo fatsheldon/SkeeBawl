@@ -1,18 +1,14 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Media;
 using System.Windows;
-using System.Windows.Input;
-using LedWiz;
 
 namespace SkeeBawlWpf
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class ClassicGame : SkeeBawlWindow, ISkeeGame
+    public partial class ClassicGame : SkeeBawlGameWindow, ISkeeGame
     {
+        private readonly string _themeDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets\\classic");
+
         public ClassicGame()
         {
             InitializeComponent();
@@ -21,72 +17,6 @@ namespace SkeeBawlWpf
         #region ISkeeGame
         public event EventHandler GameStart;
         public event EventHandler AllBawlsInPlay;
-
-        public void LedWizInputChange(object sender, LedWizInputArgs e)
-        {
-            if (e.LedWizUpdates.Any(x => x.JoystickButton == JoystickButton.Button10 && x.Value > 0))
-                Exit();
-            if (e.LedWizUpdates.Any(x => x.JoystickButton == JoystickButton.Button8 && x.Value > 0))
-                IncrementBallsInPlay();
-            if (e.LedWizUpdates.Any(x => x.JoystickButton == JoystickButton.Button7 && x.Value > 0))
-                IncrementBallsScored();
-            if (e.LedWizUpdates.Any(x => x.JoystickButton == JoystickButton.Button6 && x.Value > 0))
-                IncreaseScore(50);
-            if (e.LedWizUpdates.Any(x => x.JoystickButton == JoystickButton.Button5 && x.Value > 0))
-                IncreaseScore(40);
-            if (e.LedWizUpdates.Any(x => x.JoystickButton == JoystickButton.Button4 && x.Value > 0))
-                IncreaseScore(30);
-            if (e.LedWizUpdates.Any(x => x.JoystickButton == JoystickButton.Button3 && x.Value > 0))
-                IncreaseScore(20);
-            if (e.LedWizUpdates.Any(x => x.JoystickButton == JoystickButton.Button2 && x.Value > 0))
-                IncreaseScore(10);
-            if (e.LedWizUpdates.Any(x => x.JoystickButton == JoystickButton.Button1 && x.Value > 0))
-                CheckStartNewGame();
-        }
-        #endregion
-
-        #region private eventhandlers
-        private void Window_KeyUp(object sender, KeyEventArgs e)
-        {
-            switch (e.Key)
-            {
-                case System.Windows.Input.Key.D8:
-                    Exit();
-                    break;
-                case System.Windows.Input.Key.D7:
-                    IncrementBallsInPlay();
-                    break;
-                case System.Windows.Input.Key.D6:
-                    IncrementBallsScored();
-                    break;
-                case System.Windows.Input.Key.D5:
-                    IncreaseScore(50);
-                    break;
-                case System.Windows.Input.Key.D4:
-                    IncreaseScore(40);
-                    break;
-                case System.Windows.Input.Key.D3:
-                    IncreaseScore(30);
-                    break;
-                case System.Windows.Input.Key.D2:
-                    IncreaseScore(20);
-                    break;
-                case System.Windows.Input.Key.D1:
-                    IncreaseScore(10);
-                    break;
-                case System.Windows.Input.Key.D0:
-                    CheckStartNewGame();
-                    break;
-                case System.Windows.Input.Key.Escape: //killswitch
-                    this.Close();
-                    break;
-            }
-        }
-
-        private void ClassicGame_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            StartNewGame();
-        }
         #endregion
 
         #region privates
@@ -94,31 +24,33 @@ namespace SkeeBawlWpf
         private int _ballsInPlay = 0;
         private int _ballsScored = 0;
         private int _score = 0;
+        #endregion
 
-        private void IncreaseScore(int howMuch)
+        #region SkeeBawlGameWindow
+        protected override void IncreaseScore(int howMuch)
         {
             if (_ballsScored < BallsToUse)
             {
                 switch (howMuch)
                 {
                     case 10:
-                        using (var sp = new SoundPlayer(Properties.Resources.Ding10))
+                        using (var sp = new SoundPlayer(Path.Combine(_themeDir, "Ding10.wav")))
                             sp.Play();
                         break;
                     case 20:
-                        using (var sp = new SoundPlayer(Properties.Resources.ding20a))
+                        using (var sp = new SoundPlayer(Path.Combine(_themeDir, "Ding20a.wav")))
                             sp.Play();
                         break;
                     case 30:
-                        using (var sp = new SoundPlayer(Properties.Resources.Ding30a))
+                        using (var sp = new SoundPlayer(Path.Combine(_themeDir, "Ding30a.wav")))
                             sp.Play();
                         break;
                     case 40:
-                        using (var sp = new SoundPlayer(Properties.Resources.Ding40a))
+                        using (var sp = new SoundPlayer(Path.Combine(_themeDir, "Ding40a.wav")))
                             sp.Play();
                         break;
                     case 50:
-                        using (var sp = new SoundPlayer(Properties.Resources.Ding50a))
+                        using (var sp = new SoundPlayer(Path.Combine(_themeDir, "Ding50a.wav")))
                             sp.Play();
                         break;
                 }
@@ -127,7 +59,7 @@ namespace SkeeBawlWpf
             }
         }
 
-        private void CheckStartNewGame()
+        protected override void CheckStartNewGame()
         {
             if (_ballsScored >= BallsToUse)
             {
@@ -140,9 +72,10 @@ namespace SkeeBawlWpf
                 StartNewGame();
             }
         }
-        private void StartNewGame()
+
+        protected override void StartNewGame()
         {
-            using (var sp = new SoundPlayer(Properties.Resources.start))
+            using (var sp = new SoundPlayer(Path.Combine(_themeDir, "start.wav")))
                 sp.Play();
             Dispatcher.Invoke(() => GameOverImage.Visibility = Visibility.Hidden);
 
@@ -150,7 +83,7 @@ namespace SkeeBawlWpf
                 GameStart(this, new EventArgs());
         }
 
-        private void IncrementBallsScored()
+        protected override void IncrementBallsScored()
         {
             if (_ballsScored < BallsToUse)
             {
@@ -162,14 +95,14 @@ namespace SkeeBawlWpf
                 Dispatcher.Invoke(() => GameOverImage.Visibility = Visibility.Visible);
         }
 
-        private void IncrementBallsInPlay()
+        protected override void IncrementBallsInPlay()
         {
             _ballsInPlay++;
             if (_ballsInPlay >= BallsToUse && AllBawlsInPlay != null)
                 AllBawlsInPlay(this, new EventArgs());
         }
 
-        private void Exit()
+        protected override void Exit()
         {
             if (_ballsScored >= BallsToUse)
                 Dispatcher.Invoke(this.Close);
