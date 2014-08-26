@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading;
 using SharpDX.DirectInput;
 
 namespace LedWiz
@@ -51,10 +52,11 @@ namespace LedWiz
 
         private void _hardwarePoller_DoWork(object sender, DoWorkEventArgs e)
         {
-            _joystick.Acquire();
+            _joystick.Acquire(); 
             var timer = DateTime.Now.AddMinutes(-2);
             while (true)
             {
+                Thread.Sleep(50);//don't eat the whole cpu
                 if (((BackgroundWorker)sender).CancellationPending)
                 {
                     e.Cancel = true;
@@ -73,6 +75,7 @@ namespace LedWiz
                         InputChange(this, new LedWizInputArgs(datas));
                     }
             }
+            
         }
 
         public void SetSolenoid(bool isOn)
