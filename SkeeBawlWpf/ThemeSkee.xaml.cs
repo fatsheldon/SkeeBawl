@@ -39,16 +39,6 @@ namespace SkeeBawlWpf
             BackgroundImage.Stretch = _themeSkeeConfig.BackgroundImageConfig.StretchFill ? Stretch.Fill : Stretch.None;
             BackgroundImage.Source = new BitmapImage(new Uri(Path.Combine(_chosenThemeDir, "background.png")));
             GameOverImage.Source = new BitmapImage(new Uri(Path.Combine(_chosenThemeDir, "gameover.png")));
-
-            Canvas.SetRight(ScoreText, _themeSkeeConfig.ScoreTextConfig.Right);
-            Canvas.SetTop(ScoreText, _themeSkeeConfig.ScoreTextConfig.Top);
-            ScoreText.FontSize = _themeSkeeConfig.ScoreTextConfig.FontSize;
-            ScoreText.FontFamily = _themeSkeeConfig.ScoreTextConfig.CustomFont ? new FontFamily(_chosenThemeDir + _themeSkeeConfig.ScoreTextConfig.FontName) : new FontFamily(_themeSkeeConfig.ScoreTextConfig.FontName);
-
-            Canvas.SetRight(BallsScoredText, _themeSkeeConfig.BallsScoredTextConfig.Right);
-            Canvas.SetTop(BallsScoredText, _themeSkeeConfig.BallsScoredTextConfig.Top);
-            BallsScoredText.FontSize = _themeSkeeConfig.BallsScoredTextConfig.FontSize;
-            BallsScoredText.FontFamily = _themeSkeeConfig.BallsScoredTextConfig.CustomFont ? new FontFamily(_chosenThemeDir + _themeSkeeConfig.BallsScoredTextConfig.FontName) : new FontFamily(_themeSkeeConfig.BallsScoredTextConfig.FontName);
         }
 
         public event EventHandler GameStart;
@@ -144,6 +134,18 @@ namespace SkeeBawlWpf
         {
             using (var sp = new SoundPlayer(Path.Combine(_chosenThemeDir, "start.wav")))
                 sp.Play();
+
+            Dispatcher.Invoke(() => Canvas.SetRight(ScoreText, _themeSkeeConfig.ScoreTextConfig.Right));
+            Dispatcher.Invoke(() => Canvas.SetTop(ScoreText, _themeSkeeConfig.ScoreTextConfig.Top));
+            Dispatcher.Invoke(() => ScoreText.FontSize = _themeSkeeConfig.ScoreTextConfig.FontSize);
+            Dispatcher.Invoke(() => ScoreText.FontFamily = _themeSkeeConfig.ScoreTextConfig.CustomFont ? new FontFamily(_chosenThemeDir + _themeSkeeConfig.ScoreTextConfig.FontName) : new FontFamily(_themeSkeeConfig.ScoreTextConfig.FontName));
+
+            Dispatcher.Invoke(() => Canvas.SetRight(BallsScoredText, _themeSkeeConfig.BallsScoredTextConfig.Right));
+            Dispatcher.Invoke(() => Canvas.SetTop(BallsScoredText, _themeSkeeConfig.BallsScoredTextConfig.Top));
+            Dispatcher.Invoke(() => BallsScoredText.Visibility = Visibility.Visible);
+            Dispatcher.Invoke(() => BallsScoredText.FontSize = _themeSkeeConfig.BallsScoredTextConfig.FontSize);
+            Dispatcher.Invoke(() => BallsScoredText.FontFamily = _themeSkeeConfig.BallsScoredTextConfig.CustomFont ? new FontFamily(_chosenThemeDir + _themeSkeeConfig.BallsScoredTextConfig.FontName) : new FontFamily(_themeSkeeConfig.BallsScoredTextConfig.FontName));
+
             Dispatcher.Invoke(() => BackgroundImage.Visibility = Visibility.Visible);
             Dispatcher.Invoke(() => GameOverImage.Visibility = Visibility.Hidden);
 
