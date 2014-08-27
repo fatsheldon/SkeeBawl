@@ -38,19 +38,19 @@ namespace SkeeBawlWpf
                             sp.Play();
                         break;
                     case 20:
-                        using (var sp = new SoundPlayer(Path.Combine(_themeDir, "Ding20a.wav")))
+                        using (var sp = new SoundPlayer(Path.Combine(_themeDir, "Ding20.wav")))
                             sp.Play();
                         break;
                     case 30:
-                        using (var sp = new SoundPlayer(Path.Combine(_themeDir, "Ding30a.wav")))
+                        using (var sp = new SoundPlayer(Path.Combine(_themeDir, "Ding30.wav")))
                             sp.Play();
                         break;
                     case 40:
-                        using (var sp = new SoundPlayer(Path.Combine(_themeDir, "Ding40a.wav")))
+                        using (var sp = new SoundPlayer(Path.Combine(_themeDir, "Ding40.wav")))
                             sp.Play();
                         break;
                     case 50:
-                        using (var sp = new SoundPlayer(Path.Combine(_themeDir, "Ding50a.wav")))
+                        using (var sp = new SoundPlayer(Path.Combine(_themeDir, "Ding50.wav")))
                             sp.Play();
                         break;
                 }
@@ -92,7 +92,11 @@ namespace SkeeBawlWpf
             }
 
             if (_ballsScored == BallsToUse)
+            {
                 Dispatcher.Invoke(() => GameOverImage.Visibility = Visibility.Visible);
+                using (var sp = new SoundPlayer(Path.Combine(_themeDir, "stop.wav")))
+                    sp.Play();
+            }
         }
 
         protected override void IncrementBallsInPlay()
