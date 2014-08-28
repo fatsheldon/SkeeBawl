@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Media;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -79,8 +77,9 @@ namespace SkeeBawlWpf
                 if (_themeSkeeConfig.BallsScoredTextConfig.GameOverFontSize > 0)
                     Dispatcher.Invoke(() => BallsScoredText.FontSize = _themeSkeeConfig.BallsScoredTextConfig.GameOverFontSize);
 
-                using (var sp = new SoundPlayer(Path.Combine(_chosenThemeDir, "stop.wav")))
-                    sp.Play();
+                var mp = new MediaPlayer();
+                mp.Open(new Uri(Path.Combine(_chosenThemeDir, "stop.mp3")));
+                mp.Play();
             }
         }
 
@@ -88,29 +87,26 @@ namespace SkeeBawlWpf
         {
             if (_ballsScored < BallsToUse)
             {
+                var mp = new MediaPlayer();
                 switch (howMuch)
                 {
                     case 10:
-                        using (var sp = new SoundPlayer(Path.Combine(_chosenThemeDir, "ten.wav")))
-                            sp.Play();
+                        mp.Open(new Uri(Path.Combine(_chosenThemeDir, "ten.mp3")));
                         break;
                     case 20:
-                        using (var sp = new SoundPlayer(Path.Combine(_chosenThemeDir, "twenty.wav")))
-                            sp.Play();
+                        mp.Open(new Uri(Path.Combine(_chosenThemeDir, "twenty.mp3")));
                         break;
                     case 30:
-                        using (var sp = new SoundPlayer(Path.Combine(_chosenThemeDir, "thirty.wav")))
-                            sp.Play();
+                        mp.Open(new Uri(Path.Combine(_chosenThemeDir, "thirty.mp3")));
                         break;
                     case 40:
-                        using (var sp = new SoundPlayer(Path.Combine(_chosenThemeDir, "forty.wav")))
-                            sp.Play();
+                        mp.Open(new Uri(Path.Combine(_chosenThemeDir, "forty.mp3")));
                         break;
                     case 50:
-                        using (var sp = new SoundPlayer(Path.Combine(_chosenThemeDir, "fifty.wav")))
-                            sp.Play();
+                        mp.Open(new Uri(Path.Combine(_chosenThemeDir, "fifty.mp3")));
                         break;
                 }
+                mp.Play();
                 _score += howMuch;
                 Dispatcher.Invoke(() => ScoreText.Text = _score.ToString());
             }
@@ -132,8 +128,9 @@ namespace SkeeBawlWpf
 
         protected override void StartNewGame()
         {
-            using (var sp = new SoundPlayer(Path.Combine(_chosenThemeDir, "start.wav")))
-                sp.Play();
+            var mp = new MediaPlayer();
+            mp.Open(new Uri(Path.Combine(_chosenThemeDir, "start.mp3")));
+            mp.Play();
 
             Dispatcher.Invoke(() => Canvas.SetRight(ScoreText, _themeSkeeConfig.ScoreTextConfig.Right));
             Dispatcher.Invoke(() => Canvas.SetTop(ScoreText, _themeSkeeConfig.ScoreTextConfig.Top));
