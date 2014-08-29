@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using LedWiz;
+using SkeeBawlWpf.Properties;
 
 namespace SkeeBawlWpf
 {
@@ -78,24 +79,71 @@ namespace SkeeBawlWpf
 
         public void LedWizInputChange(object sender, LedWizInputArgs e)
         {
+            if (e.LedWizUpdates.Any(x => x.JoystickButton == JoystickButton.JoyUp && x.Value > 0))
+                RunMethod(Settings.Default.JoyUp);
+            if (e.LedWizUpdates.Any(x => x.JoystickButton == JoystickButton.JoyDown && x.Value > 0))
+                RunMethod(Settings.Default.JoyDown);
+            if (e.LedWizUpdates.Any(x => x.JoystickButton == JoystickButton.JoyLeft && x.Value > 0))
+                RunMethod(Settings.Default.JoyLeft);
+            if (e.LedWizUpdates.Any(x => x.JoystickButton == JoystickButton.JoyRight && x.Value > 0))
+                RunMethod(Settings.Default.JoyRight);
+            if (e.LedWizUpdates.Any(x => x.JoystickButton == JoystickButton.Button12 && x.Value > 0))
+                RunMethod(Settings.Default.Button12);
+            if (e.LedWizUpdates.Any(x => x.JoystickButton == JoystickButton.Button11 && x.Value > 0))
+                RunMethod(Settings.Default.Button11);
             if (e.LedWizUpdates.Any(x => x.JoystickButton == JoystickButton.Button10 && x.Value > 0))
-                Exit();
+                RunMethod(Settings.Default.Button10);
+            if (e.LedWizUpdates.Any(x => x.JoystickButton == JoystickButton.Button9 && x.Value > 0))
+                RunMethod(Settings.Default.Button9);
             if (e.LedWizUpdates.Any(x => x.JoystickButton == JoystickButton.Button8 && x.Value > 0))
-                IncrementBallsInPlay();
+                RunMethod(Settings.Default.Button8);
             if (e.LedWizUpdates.Any(x => x.JoystickButton == JoystickButton.Button7 && x.Value > 0))
-                IncrementBallsScored();
+                RunMethod(Settings.Default.Button7);
             if (e.LedWizUpdates.Any(x => x.JoystickButton == JoystickButton.Button6 && x.Value > 0))
-                IncreaseScore(50);
+                RunMethod(Settings.Default.Button6);
             if (e.LedWizUpdates.Any(x => x.JoystickButton == JoystickButton.Button5 && x.Value > 0))
-                IncreaseScore(40);
+                RunMethod(Settings.Default.Button5);
             if (e.LedWizUpdates.Any(x => x.JoystickButton == JoystickButton.Button4 && x.Value > 0))
-                IncreaseScore(30);
+                RunMethod(Settings.Default.Button4);
             if (e.LedWizUpdates.Any(x => x.JoystickButton == JoystickButton.Button3 && x.Value > 0))
-                IncreaseScore(20);
+                RunMethod(Settings.Default.Button3);
             if (e.LedWizUpdates.Any(x => x.JoystickButton == JoystickButton.Button2 && x.Value > 0))
-                IncreaseScore(10);
+                RunMethod(Settings.Default.Button2);
             if (e.LedWizUpdates.Any(x => x.JoystickButton == JoystickButton.Button1 && x.Value > 0))
-                CheckStartNewGame();
+                RunMethod(Settings.Default.Button1);
+        }
+        private void RunMethod(int whichOne)
+        {
+            switch ((InputMap)whichOne)
+            {
+                case InputMap.Start:
+                    CheckStartNewGame();
+                    break;
+                case InputMap.Score10:
+                    IncreaseScore(10);
+                    break;
+                case InputMap.Score20:
+                    IncreaseScore(20);
+                    break;
+                case InputMap.Score30:
+                    IncreaseScore(30);
+                    break;
+                case InputMap.Score40:
+                    IncreaseScore(40);
+                    break;
+                case InputMap.Score50:
+                    IncreaseScore(50);
+                    break;
+                case InputMap.CountScoredBalls:
+                    IncrementBallsScored();
+                    break;
+                case InputMap.CountBalls:
+                    IncrementBallsInPlay();
+                    break;
+                case InputMap.Select:
+                    Exit();
+                    break;
+            }
         }
     }
 }

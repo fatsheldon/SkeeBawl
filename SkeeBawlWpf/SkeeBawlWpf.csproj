@@ -60,8 +60,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ClassicSkeeBawlListItem.cs" />
+    <Compile Include="InputMap.cs" />
     <Compile Include="ISkeeBawlGameListItem.cs" />
     <Compile Include="ISkeeGame.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="SkeeBawlGameWindow.cs" />
     <Compile Include="SkeeBawlWindow.cs" />
     <Compile Include="testwindow.xaml.cs">
