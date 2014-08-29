@@ -62,6 +62,7 @@ namespace SkeeBawlWpf
 
             if (_ballsScored == BallsToUse)
             {
+                _ballsScored++;
                 Dispatcher.Invoke(() => BackgroundImage.Visibility = Visibility.Hidden);
                 Dispatcher.Invoke(() => GameOverImage.Visibility = Visibility.Visible);
 

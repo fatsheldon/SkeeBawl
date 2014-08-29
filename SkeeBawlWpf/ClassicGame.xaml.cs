@@ -92,6 +92,7 @@ namespace SkeeBawlWpf
 
             if (_ballsScored == BallsToUse)
             {
+                _ballsScored++;
                 Dispatcher.Invoke(() => GameOverImage.Visibility = Visibility.Visible);
                 var mp = new MediaPlayer();
                 mp.Open(new Uri(Path.Combine(_themeDir, "stop.mp3")));
