@@ -7,8 +7,6 @@ namespace SkeeBawlWpf
 {
     public partial class ClassicGame : SkeeBawlGameWindow, ISkeeGame
     {
-        private readonly string _themeDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets\\classic");
-
         public ClassicGame()
         {
             InitializeComponent();
@@ -20,6 +18,7 @@ namespace SkeeBawlWpf
         #endregion
 
         #region privates
+        private readonly string _themeDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets\\classic");
         private const int BallsToUse = 9;
         private int _ballsInPlay = 0;
         private int _ballsScored = 0;
@@ -31,26 +30,24 @@ namespace SkeeBawlWpf
         {
             if (_ballsScored < BallsToUse)
             {
-                var mp = new MediaPlayer();
                 switch (howMuch)
                 {
                     case 10:
-                        mp.Open(new Uri(Path.Combine(_themeDir, "Ding10.mp3")));
+                        PlaySound(new Uri(Path.Combine(_themeDir, "Ding10.mp3")));
                         break;
                     case 20:
-                        mp.Open(new Uri(Path.Combine(_themeDir, "Ding20.mp3")));
+                        PlaySound(new Uri(Path.Combine(_themeDir, "Ding20.mp3")));
                         break;
                     case 30:
-                        mp.Open(new Uri(Path.Combine(_themeDir, "Ding30.mp3")));
+                        PlaySound(new Uri(Path.Combine(_themeDir, "Ding30.mp3")));
                         break;
                     case 40:
-                        mp.Open(new Uri(Path.Combine(_themeDir, "Ding40.mp3")));
+                        PlaySound(new Uri(Path.Combine(_themeDir, "Ding40.mp3")));
                         break;
                     case 50:
-                        mp.Open(new Uri(Path.Combine(_themeDir, "Ding50.mp3")));
+                        PlaySound(new Uri(Path.Combine(_themeDir, "Ding50.mp3")));
                         break;
                 }
-                mp.Play();
                 _score += howMuch;
                 Dispatcher.Invoke(() => ScoreText.Text = _score.ToString());
             }
@@ -72,10 +69,7 @@ namespace SkeeBawlWpf
 
         protected override void StartNewGame()
         {
-            var mp = new MediaPlayer();
-            mp.Open(new Uri(Path.Combine(_themeDir, "start.mp3")));
-            mp.Play();
-
+            PlaySound(new Uri(Path.Combine(_themeDir, "start.mp3")));
             Dispatcher.Invoke(() => GameOverImage.Visibility = Visibility.Hidden);
 
             if (GameStart != null)
@@ -94,9 +88,7 @@ namespace SkeeBawlWpf
             {
                 _ballsScored++;
                 Dispatcher.Invoke(() => GameOverImage.Visibility = Visibility.Visible);
-                var mp = new MediaPlayer();
-                mp.Open(new Uri(Path.Combine(_themeDir, "stop.mp3")));
-                mp.Play();
+                PlaySound(new Uri(Path.Combine(_themeDir, "stop.mp3")));
             }
         }
 

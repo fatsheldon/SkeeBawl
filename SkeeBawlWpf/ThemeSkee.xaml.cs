@@ -78,9 +78,7 @@ namespace SkeeBawlWpf
                 if (_themeSkeeConfig.BallsScoredTextConfig.GameOverFontSize > 0)
                     Dispatcher.Invoke(() => BallsScoredText.FontSize = _themeSkeeConfig.BallsScoredTextConfig.GameOverFontSize);
 
-                var mp = new MediaPlayer();
-                mp.Open(new Uri(Path.Combine(_chosenThemeDir, "stop.mp3")));
-                mp.Play();
+                PlaySound(new Uri(Path.Combine(_chosenThemeDir, "stop.mp3")));
             }
         }
 
@@ -88,26 +86,24 @@ namespace SkeeBawlWpf
         {
             if (_ballsScored < BallsToUse)
             {
-                var mp = new MediaPlayer();
                 switch (howMuch)
                 {
                     case 10:
-                        mp.Open(new Uri(Path.Combine(_chosenThemeDir, "ten.mp3")));
+                        PlaySound(new Uri(Path.Combine(_chosenThemeDir, "ten.mp3")));
                         break;
                     case 20:
-                        mp.Open(new Uri(Path.Combine(_chosenThemeDir, "twenty.mp3")));
+                        PlaySound(new Uri(Path.Combine(_chosenThemeDir, "twenty.mp3")));
                         break;
                     case 30:
-                        mp.Open(new Uri(Path.Combine(_chosenThemeDir, "thirty.mp3")));
+                        PlaySound(new Uri(Path.Combine(_chosenThemeDir, "thirty.mp3")));
                         break;
                     case 40:
-                        mp.Open(new Uri(Path.Combine(_chosenThemeDir, "forty.mp3")));
+                        PlaySound(new Uri(Path.Combine(_chosenThemeDir, "forty.mp3")));
                         break;
                     case 50:
-                        mp.Open(new Uri(Path.Combine(_chosenThemeDir, "fifty.mp3")));
+                        PlaySound(new Uri(Path.Combine(_chosenThemeDir, "fifty.mp3")));
                         break;
                 }
-                mp.Play();
                 _score += howMuch;
                 Dispatcher.Invoke(() => ScoreText.Text = _score.ToString());
             }
@@ -129,9 +125,7 @@ namespace SkeeBawlWpf
 
         protected override void StartNewGame()
         {
-            var mp = new MediaPlayer();
-            mp.Open(new Uri(Path.Combine(_chosenThemeDir, "start.mp3")));
-            mp.Play();
+            PlaySound(new Uri(Path.Combine(_chosenThemeDir, "start.mp3")));
 
             Dispatcher.Invoke(() => Canvas.SetRight(ScoreText, _themeSkeeConfig.ScoreTextConfig.Right));
             Dispatcher.Invoke(() => Canvas.SetTop(ScoreText, _themeSkeeConfig.ScoreTextConfig.Top));

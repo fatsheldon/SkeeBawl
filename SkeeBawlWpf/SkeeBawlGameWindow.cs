@@ -1,6 +1,8 @@
+using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using LedWiz;
 
 namespace SkeeBawlWpf
@@ -11,6 +13,12 @@ namespace SkeeBawlWpf
         {
             KeyUp += Window_KeyUp;
             Loaded += Game_OnLoaded;
+            MediaPlayer.MediaEnded += MediaPlayer_MediaEnded;
+        }
+
+        private void MediaPlayer_MediaEnded(object sender, System.EventArgs e)
+        {
+            ((MediaPlayer)sender).Close();
         }
         protected abstract void IncrementBallsInPlay();
         protected abstract void IncrementBallsScored();
@@ -18,6 +26,14 @@ namespace SkeeBawlWpf
         protected abstract void CheckStartNewGame();
         protected abstract void StartNewGame();
         protected abstract void Exit();
+        protected MediaPlayer MediaPlayer = new MediaPlayer();
+
+        protected void PlaySound(Uri uri)
+        {
+            Dispatcher.Invoke(() => MediaPlayer.Open(uri));
+            Dispatcher.Invoke(() => MediaPlayer.Play());
+        }
+
 
         protected void Window_KeyUp(object sender, KeyEventArgs e)
         {
