@@ -18,9 +18,10 @@ namespace SkeeBawlWpf
     {
         #region privates
         private const int BallsToUse = 9;
-        private int _ballsInPlay = 0;
-        private int _ballsScored = 0;
-        private int _score = 0;
+        private int _ballsInPlay;
+        private int _ballsScoredSwitch;
+        private int _ballsScored;
+        private int _score;
         private readonly string _themeSkeeDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets\\ThemeSkee");
         private readonly string _chosenThemeDir;
         private readonly ThemeSkeeConfig _themeSkeeConfig;
@@ -52,18 +53,18 @@ namespace SkeeBawlWpf
 
         protected override void IncrementBallsScored()
         {
-            if (_ballsScored < BallsToUse)
+            if (_ballsScoredSwitch < BallsToUse)
             {
-                _ballsScored++;
+                _ballsScoredSwitch++;
                 var ballsScoredString = _themeSkeeConfig.BallsScoredTextConfig.PadLeft > 0
-                    ? _ballsScored.ToString().PadLeft(_themeSkeeConfig.BallsScoredTextConfig.PadLeft, '0')
-                    : _ballsScored.ToString();
+                    ? _ballsScoredSwitch.ToString().PadLeft(_themeSkeeConfig.BallsScoredTextConfig.PadLeft, '0')
+                    : _ballsScoredSwitch.ToString();
                 Dispatcher.Invoke(() => BallsScoredText.Text = ballsScoredString);
             }
 
-            if (_ballsScored == BallsToUse)
+            if (_ballsScoredSwitch == BallsToUse)
             {
-                _ballsScored++;
+                _ballsScoredSwitch++;
                 Dispatcher.Invoke(() => BackgroundImage.Visibility = Visibility.Hidden);
                 Dispatcher.Invoke(() => GameOverImage.Visibility = Visibility.Visible);
 
@@ -85,8 +86,9 @@ namespace SkeeBawlWpf
 
         protected override void IncreaseScore(int howMuch)
         {
-            if (_ballsScored < BallsToUse)
+            if (_ballsScored < BallsToUse && _ballsScoredSwitch < BallsToUse)
             {
+                _ballsScored++;
                 switch (howMuch)
                 {
                     case 10:
@@ -112,14 +114,15 @@ namespace SkeeBawlWpf
 
         protected override void CheckStartNewGame()
         {
-            if (_ballsScored >= BallsToUse)
+            if (_ballsScoredSwitch >= BallsToUse)
             {
+                _ballsScoredSwitch = 0;
                 _ballsScored = 0;
                 _ballsInPlay = 0;
                 _score = 0;
 
                 Dispatcher.Invoke(() => ScoreText.Text = _score.ToString());
-                Dispatcher.Invoke(() => BallsScoredText.Text = _ballsScored.ToString());
+                Dispatcher.Invoke(() => BallsScoredText.Text = _ballsScoredSwitch.ToString());
                 StartNewGame();
             }
         }
@@ -152,7 +155,7 @@ namespace SkeeBawlWpf
 
         protected override void Exit()
         {
-            if (_ballsScored >= BallsToUse)
+            if (_ballsScoredSwitch >= BallsToUse)
                 Dispatcher.Invoke(this.Close);
         }
 
