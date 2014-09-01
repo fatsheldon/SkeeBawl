@@ -66,6 +66,7 @@
     <Compile Include="Settings.cs" />
     <Compile Include="SkeeBawlGameWindow.cs" />
     <Compile Include="SkeeBawlWindow.cs" />
+    <Compile Include="SkeeMediaPlayer.cs" />
     <Compile Include="testwindow.xaml.cs">
       <DependentUpon>testwindow.xaml</DependentUpon>
     </Compile>

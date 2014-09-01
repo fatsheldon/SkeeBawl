@@ -14,7 +14,8 @@ namespace SkeeBawlWpf
         {
             KeyUp += Window_KeyUp;
             Loaded += Game_OnLoaded;
-            MediaPlayer.MediaEnded += MediaPlayer_MediaEnded;
+            _mediaPlayer1.MediaEnded += MediaPlayer_MediaEnded;
+
         }
 
         private void MediaPlayer_MediaEnded(object sender, System.EventArgs e)
@@ -27,12 +28,26 @@ namespace SkeeBawlWpf
         protected abstract void CheckStartNewGame();
         protected abstract void StartNewGame();
         protected abstract void Exit();
-        protected MediaPlayer MediaPlayer = new MediaPlayer();
+        private readonly SkeeMediaPlayer _mediaPlayer1 = new SkeeMediaPlayer();
+        private SkeeMediaPlayer _mediaPlayer2;
 
         protected void PlaySound(Uri uri)
         {
-            Dispatcher.Invoke(() => MediaPlayer.Open(uri));
-            Dispatcher.Invoke(() => MediaPlayer.Play());
+            if (!_mediaPlayer1.IsBusy)
+            {
+                Dispatcher.Invoke(() => _mediaPlayer1.Open(uri));
+                Dispatcher.Invoke(() => _mediaPlayer1.Play());
+            }
+            else
+            {
+                if (_mediaPlayer2 == null)
+                {
+                    _mediaPlayer2 = new SkeeMediaPlayer();
+                    _mediaPlayer2.MediaEnded += MediaPlayer_MediaEnded;
+                }
+                Dispatcher.Invoke(() => _mediaPlayer2.Open(uri));
+                Dispatcher.Invoke(() => _mediaPlayer2.Play());
+            }
         }
 
 
