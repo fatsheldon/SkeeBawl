@@ -30,13 +30,14 @@ namespace SkeeBawlWpf
         {
             InitializeComponent();
             var dirs = Directory.GetDirectories(_themeSkeeDir).ToArray();
-            _chosenThemeDir = dirs[new Random().Next(dirs.Length - 1)];
+            _chosenThemeDir = dirs[new Random().Next(0, dirs.Length)];
+            
 
             _themeSkeeConfig = JsonConvert.DeserializeObject<ThemeSkeeConfig>(File.ReadAllText(Path.Combine(_chosenThemeDir, "theme.config")));
 
             BackgroundImage.Stretch = _themeSkeeConfig.BackgroundImageConfig.StretchFill ? Stretch.Fill : Stretch.None;
-            BackgroundImage.Source = new BitmapImage(new Uri(Path.Combine(_chosenThemeDir, "background.png")));
-            GameOverImage.Source = new BitmapImage(new Uri(Path.Combine(_chosenThemeDir, "gameover.png")));
+            BackgroundImage.Source = new BitmapImage(new Uri(Path.Combine(_chosenThemeDir, _themeSkeeConfig.BackgroundImageConfig.Source)));
+            GameOverImage.Source = new BitmapImage(new Uri(Path.Combine(_chosenThemeDir, _themeSkeeConfig.GameOverImageConfig.Source)));
         }
 
         public event EventHandler GameStart;
@@ -78,7 +79,7 @@ namespace SkeeBawlWpf
                 if (_themeSkeeConfig.BallsScoredTextConfig.GameOverFontSize > 0)
                     Dispatcher.Invoke(() => BallsScoredText.FontSize = _themeSkeeConfig.BallsScoredTextConfig.GameOverFontSize);
 
-                PlaySound(new Uri(Path.Combine(_chosenThemeDir, "stop.mp3")));
+                PlaySound(new Uri(Path.Combine(_chosenThemeDir, _themeSkeeConfig.GameOverSound)));
             }
         }
 
@@ -89,19 +90,19 @@ namespace SkeeBawlWpf
                 switch (howMuch)
                 {
                     case 10:
-                        PlaySound(new Uri(Path.Combine(_chosenThemeDir, "ten.mp3")));
+                        PlaySound(new Uri(Path.Combine(_chosenThemeDir, _themeSkeeConfig.Score10Sound)));
                         break;
                     case 20:
-                        PlaySound(new Uri(Path.Combine(_chosenThemeDir, "twenty.mp3")));
+                        PlaySound(new Uri(Path.Combine(_chosenThemeDir, _themeSkeeConfig.Score20Sound)));
                         break;
                     case 30:
-                        PlaySound(new Uri(Path.Combine(_chosenThemeDir, "thirty.mp3")));
+                        PlaySound(new Uri(Path.Combine(_chosenThemeDir, _themeSkeeConfig.Score30Sound)));
                         break;
                     case 40:
-                        PlaySound(new Uri(Path.Combine(_chosenThemeDir, "forty.mp3")));
+                        PlaySound(new Uri(Path.Combine(_chosenThemeDir, _themeSkeeConfig.Score40Sound)));
                         break;
                     case 50:
-                        PlaySound(new Uri(Path.Combine(_chosenThemeDir, "fifty.mp3")));
+                        PlaySound(new Uri(Path.Combine(_chosenThemeDir, _themeSkeeConfig.Score50Sound)));
                         break;
                 }
                 _score += howMuch;
@@ -125,18 +126,22 @@ namespace SkeeBawlWpf
 
         protected override void StartNewGame()
         {
-            PlaySound(new Uri(Path.Combine(_chosenThemeDir, "start.mp3")));
+            PlaySound(new Uri(Path.Combine(_chosenThemeDir, _themeSkeeConfig.StartSound)));
 
             Dispatcher.Invoke(() => Canvas.SetRight(ScoreText, _themeSkeeConfig.ScoreTextConfig.Right));
             Dispatcher.Invoke(() => Canvas.SetTop(ScoreText, _themeSkeeConfig.ScoreTextConfig.Top));
             Dispatcher.Invoke(() => ScoreText.FontSize = _themeSkeeConfig.ScoreTextConfig.FontSize);
             Dispatcher.Invoke(() => ScoreText.FontFamily = _themeSkeeConfig.ScoreTextConfig.CustomFont ? new FontFamily(_chosenThemeDir + _themeSkeeConfig.ScoreTextConfig.FontName) : new FontFamily(_themeSkeeConfig.ScoreTextConfig.FontName));
+            if (!string.IsNullOrEmpty(_themeSkeeConfig.ScoreTextConfig.FontColor))
+                Dispatcher.Invoke(() => ScoreText.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(_themeSkeeConfig.ScoreTextConfig.FontColor)));
 
             Dispatcher.Invoke(() => Canvas.SetRight(BallsScoredText, _themeSkeeConfig.BallsScoredTextConfig.Right));
             Dispatcher.Invoke(() => Canvas.SetTop(BallsScoredText, _themeSkeeConfig.BallsScoredTextConfig.Top));
             Dispatcher.Invoke(() => BallsScoredText.Visibility = Visibility.Visible);
             Dispatcher.Invoke(() => BallsScoredText.FontSize = _themeSkeeConfig.BallsScoredTextConfig.FontSize);
             Dispatcher.Invoke(() => BallsScoredText.FontFamily = _themeSkeeConfig.BallsScoredTextConfig.CustomFont ? new FontFamily(_chosenThemeDir + _themeSkeeConfig.BallsScoredTextConfig.FontName) : new FontFamily(_themeSkeeConfig.BallsScoredTextConfig.FontName));
+            if (!string.IsNullOrEmpty(_themeSkeeConfig.BallsScoredTextConfig.FontColor))
+                Dispatcher.Invoke(() => BallsScoredText.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(_themeSkeeConfig.BallsScoredTextConfig.FontColor)));
 
             Dispatcher.Invoke(() => BackgroundImage.Visibility = Visibility.Visible);
             Dispatcher.Invoke(() => GameOverImage.Visibility = Visibility.Hidden);
