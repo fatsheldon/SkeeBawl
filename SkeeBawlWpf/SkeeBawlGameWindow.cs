@@ -42,8 +42,8 @@ namespace SkeeBawlWpf
             {
                 if (_mediaPlayer2 == null)
                 {
-                    _mediaPlayer2 = new SkeeMediaPlayer();
-                    _mediaPlayer2.MediaEnded += MediaPlayer_MediaEnded;
+                    Dispatcher.Invoke(() => _mediaPlayer2 = new SkeeMediaPlayer());
+                    Dispatcher.Invoke(() => _mediaPlayer2.MediaEnded += MediaPlayer_MediaEnded);
                 }
                 Dispatcher.Invoke(() => _mediaPlayer2.Open(uri));
                 Dispatcher.Invoke(() => _mediaPlayer2.Play());
